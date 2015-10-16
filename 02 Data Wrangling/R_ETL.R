@@ -1,0 +1,50 @@
+setwd("~/Code/DataVisualization/DV_RProject2/01 Data")
+
+file_path <- "traffic-data.csv"
+
+df <- read.csv(file_path, stringsAsFactors = FALSE)
+
+# Replace "." (i.e., period) with "_" in the column names.
+names(df) <- gsub("\\.+", "_", names(df))
+
+
+measures <- c("Yr",	"Population",	"Pop_Rank",	"Commuters",	"Freeway_Daily_Miles",	"Street_Daily_Miles",	"Value_of_Time",	"Comm_Value_of_Time",	"Gas_Cost",	"Diesel_Cost",	"Excess_Fuel_Gal",	"Excess_Fuel_Per_Com",	"Annual_Delay_Hours",	"Delay_Per_Commuter",	"Com_Stress_Ind",	"Congestion_Cost",	"Congest_Cost_Per_Com")
+
+dimensions <- setdiff(names(df), measures)
+if( length(measures) > 1 || ! is.na(dimensions)) {
+  for(d in dimensions) {
+    # Get rid of " and ' in dimensions.
+    df[d] <- data.frame(lapply(df[d], gsub, pattern="[\"']",replacement= ""))
+    # Change & to and in dimensions.
+    df[d] <- data.frame(lapply(df[d], gsub, pattern="&",replacement= " and "))
+    # Change : to ; in dimensions.
+    df[d] <- data.frame(lapply(df[d], gsub, pattern=":",replacement= ";"))
+  }
+}
+
+library(lubridate)
+
+# Get rid of all characters in measures except for numbers, the - sign, and period.dimensions
+if( length(measures) > 1 || ! is.na(measures)) {
+  for(m in measures) {
+    df[m] <- data.frame(lapply(df[m], gsub, pattern="[^--.0-9]",replacement= ""))
+  }
+}
+
+write.csv(df, paste(gsub(".csv", "", file_path), ".reformatted.csv", sep=""), row.names=FALSE, na = "")
+
+tableName <- gsub(" +", "_", gsub("[^A-z, 0-9, ]", "", gsub(".csv", "", file_path)))
+sql <- paste("CREATE TABLE", tableName, "(\n-- Change table_name to the table name you want.\n")
+if( length(measures) > 1 || ! is.na(dimensions)) {
+  for(d in dimensions) {
+    sql <- paste(sql, paste(d, "varchar2(4000),\n"))
+  }
+}
+if( length(measures) > 1 || ! is.na(measures)) {
+  for(m in measures) {
+    if(m != tail(measures, n=1)) sql <- paste(sql, paste(m, "number(38,4),\n"))
+    else sql <- paste(sql, paste(m, "number(38,4)\n"))
+  }
+}
+sql <- paste(sql, ");")
+cat(sql)

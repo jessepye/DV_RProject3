@@ -1,0 +1,67 @@
+---
+title: "Project 2 - Traffic Data for Top 100 U.S. Cities"
+author: "Daniel Schlomer, Jesse Pye"
+date: October 2, 2015"
+output: html_document
+---
+***
+
+This is an html file that documents the steps to reproduce our project . This html file presents a visual story about our data and what we discovered about our data using visualization and workflow techniques.
+
+The first thing we did was locate a source of data. We found traffic data for the top 100 U.S. cities over the past 30 years from Texas A&M. We had to extract, transform, and load this data into an Oracle database.
+
+Here is the R code for this:
+```{r}
+source("../02 Data Wrangling/R_ETL.R",echo=TRUE)
+```
+
+The last block of code is a SQL query that we copied and pasted into our sql developer program. This created a table, which we then populated using sqldeveloper with our CSV file.
+
+***
+
+Now, let's do some workflows and visualize our data!
+
+The first thing we did Was load all of our data into once visualization, to make sure everything felt right. Here, we plotted "year" on the x-axis and "commuters" on the y-axis, with every city plotted as a data point. You can see that as time moves forward, the number of commuters increase in most cities until about 2005-2010.
+
+```{r}
+source("../03 Visualizations/Plot1.R",echo=TRUE)
+```
+
+***
+
+Next is our first data visualization with a workflow.
+Here, we take our entire dataset, and only look at years after 1999 and cities that are "large" or "very large." For our graph, we plot the commuters delay against their "congestion cost," and we also color code each point with the year that it is from.
+
+```{r}
+source("../03 Visualizations/Plot2.R",echo=TRUE)
+```
+
+Here, it is easy to see that as delay increases, so does congestion cost. It is also interesting how for a fixed givien delay, the congestion cost increases as the year increases. This may be an artifacti of inflation.
+
+***
+
+Next, we look at "delay per commuter" vs. "stress." For our workflow, we only look at data from the year 2010. We also color our coordinates with the size of the cities - small, medium, large, or very large.
+
+```{r}
+source("../03 Visualizations/Plot3.R",echo=TRUE)
+```
+
+This graph clearly shows a linear realationship between commute delay and stress. It is also easy to see that "very large" cities tend to have longer delays, while "small" cities have short delays.
+
+***
+
+Our 4th visualization is not of traffic, but of the cost of gasoline. Each data point represents the cost of gasoline in a certain city and year.
+
+```{r}
+source("../03 Visualizations/Plot4.R",echo=TRUE)
+```
+
+Here, you can clearly see gas prices remaining more or less steady from 1980-2000, then increasing quickly for the next 10 years. One interesting year is 2009. You can clearly see the effects of the 2008 recession on gas prices.
+
+***
+
+```{r}
+source("../03 Visualizations/Plot5.R",echo=TRUE)
+```
+
+The explosion in cost of congestion occurs most dramatically in the biggest cities.
