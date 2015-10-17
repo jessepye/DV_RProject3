@@ -25,14 +25,15 @@ The first thing we did was locate a source of data. We used our traffic data fro
 
 Now, let's do some workflows and visualize our data!
 
-First, we did an inner join over the two sets of data.
+First, we did an inner join over the two sets of data. Using the data, we plotted net migration (per capita) vs. commuter delay. From the data, you can see a weak positive correlation between net immigration and commuter delay.
+
 ```{r}
 source("../03 Visualizations/Plot1.R",echo=TRUE)
 ```
 
 ***
 
-Next, we did an outer join with a different visualization
+Next, we did an full join with a different visualization. Here, we plotted  gas prices vs. migration per capita. There was an interesting correlation here: areas with either very high or very low (negative) migration had central gas prices, while areas with stable populations had a much higher variance in gas prices, either very expensive or very cheap.
 ```{r}
 source("../03 Visualizations/Plot2.R",echo=TRUE)
 ```
@@ -40,7 +41,7 @@ source("../03 Visualizations/Plot2.R",echo=TRUE)
 
 ***
 
-Finally, we used a left join our data with a different visualization
+Finally, we used a left join our data with a different visualization. Here, we plotted births per capita on the x-axis and commuter stress index" on the y-axis. Maybe locations with high birth rates also have bad traffic? After visualizing the data, however, one can see that there is little or no correlation.
 ```{r}
 source("../03 Visualizations/Plot3.R",echo=TRUE)
 ```
