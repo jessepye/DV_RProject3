@@ -8,7 +8,7 @@ df <- read.csv(file_path, stringsAsFactors = FALSE)
 names(df) <- gsub("\\.+", "_", names(df))
 
 
-measures <- c("Yr",	"Population",	"Pop_Rank",	"Commuters",	"Freeway_Daily_Miles",	"Street_Daily_Miles",	"Value_of_Time",	"Comm_Value_of_Time",	"Gas_Cost",	"Diesel_Cost",	"Excess_Fuel_Gal",	"Excess_Fuel_Per_Com",	"Annual_Delay_Hours",	"Delay_Per_Commuter",	"Com_Stress_Ind",	"Congestion_Cost",	"Congest_Cost_Per_Com")
+measures <- c("",	"Population",	"Pop_Rank",	"Commuters",	"Freeway_Daily_Miles",	"Street_Daily_Miles",	"Value_of_Time",	"Comm_Value_of_Time",	"Gas_Cost",	"Diesel_Cost",	"Excess_Fuel_Gal",	"Excess_Fuel_Per_Com",	"Annual_Delay_Hours",	"Delay_Per_Commuter",	"Com_Stress_Ind",	"Congestion_Cost",	"Congest_Cost_Per_Com")
 
 dimensions <- setdiff(names(df), measures)
 if( length(measures) > 1 || ! is.na(dimensions)) {
